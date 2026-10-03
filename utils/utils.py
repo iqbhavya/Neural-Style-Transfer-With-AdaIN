@@ -1,6 +1,7 @@
 from torch.utils.data import Dataset
 import os
 import torchvision.transforms as transforms
+from PIL import Image
 
 class ImageFolderDataset(Dataset):
     def __init__(self, root, transform):
