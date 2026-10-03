@@ -1,0 +1,4 @@
+content_dir: C:\Users\bhavy\OneDrive\Desktop\Folders\Code\Some Projects\NST\content_data
+style_dir: C:\Users\bhavy\OneDrive\Desktop\Folders\Code\Some Projects\NST\style_data
+vgg: C:\Users\bhavy\OneDrive\Desktop\Folders\Code\Some Projects\NST\vgg_normalised.pth
+experiment: experiment1
