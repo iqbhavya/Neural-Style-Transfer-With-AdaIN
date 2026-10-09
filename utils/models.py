@@ -75,7 +75,7 @@ class VGGEncoder(nn.Module):
             for param in getattr(self, name).parameters():
                 param.requires_grad = False
 
-    def forward(self, input):
+    def forward(self, input, is_test=False):
         h1 = self.enc_1(input)
         h2 = self.enc_2(h1)
         h3 = self.enc_3(h2)
