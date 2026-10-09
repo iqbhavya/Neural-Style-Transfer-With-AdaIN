@@ -69,6 +69,19 @@ def parse_arguments():
     )
 
     parser.add_argument(
+    '--content_weight', 
+    type=float, 
+    default=1.0,
+    help='Content weight')
+    
+    parser.add_argument(
+    '--style_weight', 
+    type=float, 
+    default=5,
+    help='Style weight')
+    
+
+    parser.add_argument(
     '--epochs',
     type=int,
     default=1,
@@ -81,7 +94,34 @@ def parse_arguments():
     default=1,
     help='Log interval')
 
+    parser.add_argument(
+    '--save_interval', 
+    type=int, 
+    default=2,
+    help='Save interval')
     
+    parser.add_argument(
+    '--resume', 
+    action='store_true', 
+    default=False,
+    help='Resume training'
+    )
+    
+    parser.add_argument(
+    '--decoder_path', 
+    type=str, 
+    default=None,
+    help='Path to decoder checkpoint'
+    )
+    
+    parser.add_argument(
+    '--optimizer_path', 
+    type=str, 
+    default=None,
+    help='Path to optimizer checkpoint'
+    )
+    
+
 
     return parser.parse_args()
 
@@ -121,6 +161,9 @@ def main():
         lr_lambda = lambda epoch: 1.0/ (1.0 + args.lr_decay* epoch)
     )
 
+    if args.resume:
+        decoder.load_state_dict(torch.load(args.decoder_path))
+        optimizer.load_state_dict(torch.load(args.optimizer_path))
     
     print("Starting training...")
 
