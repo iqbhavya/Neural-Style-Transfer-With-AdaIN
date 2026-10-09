@@ -34,8 +34,12 @@ def get_transform(size, crop , final_size):
     if crop:
         transform_list.append(transforms.CenterCrop(final_size))
     else:
-        transform_list.append(transforms.Resize(final_size))
+        transform_list.append(transforms.Resize((final_size, final_size)))
 
     transform_list.append(transforms.ToTensor())
     transform_list.append(transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]))
     return transforms.Compose(transform_list)    
+
+
+def adaptive_instance_normalization(content_feat,style_feat):
+    pass
