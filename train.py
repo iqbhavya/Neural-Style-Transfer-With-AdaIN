@@ -157,6 +157,7 @@ def main():
             loss_c = mse_loss(g_feats[-1], t) * args.content_weight
 
             loss_s = 0
+            
             for g_f, s_f in zip(g_feats, s_feats):
                 g_mean, g_std = calc_mean_std(g_f)
                 s_mean, s_std = calc_mean_std(s_f)
@@ -186,5 +187,13 @@ def main():
         if (epoch+1) % args.log_interval == 0:
             tqdm.write(f'Iter {epoch+1}: Loss:{running_loss:4f}, Content Loss: {running_closs:4f}, Style Loss: {running_sloss:4f}')    
 
+        if (epoch+1) % args.save_interval == 0:
+            torch.save(decoder.state_dict(), save_dir / f'decoder_{epoch+1}.pth')
+            torch.save(optimizer.state_dict(), save_dir / f'optimizer_{epoch+1}.pth')
+
+            with torch.no_grad():
+                output = torch.cat([content_batch, style_batch, g], dim=0)
+                save_image(output, save_dir / f'output_{epoch+1}.png', nrow=args.batch_size)
+ 
 if __name__ == "__main__":
     main()
